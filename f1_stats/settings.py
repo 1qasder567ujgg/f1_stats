@@ -11,10 +11,10 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
+import f1_stats.db_settings as f1db
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
@@ -79,8 +79,12 @@ WSGI_APPLICATION = 'f1_stats.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': f1db.DB_NAME,
+        'USER': f1db.DB_USER,
+        'PASSWORD': f1db.DB_USER_PASSWORD,
+        'HOST': f1db.DB_HOST,
+        'PORT': '',
     }
 }
 
