@@ -12,7 +12,7 @@ class Circuits(models.Model):
     url = models.CharField(unique=True, max_length=255)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'circuits'
 
 
@@ -24,7 +24,7 @@ class ConstructorResults(models.Model):
     status = models.CharField(max_length=255, blank=True, null=True)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'constructorResults'
 
 
@@ -38,7 +38,7 @@ class ConstructorStandings(models.Model):
     wins = models.IntegerField()
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'constructorStandings'
 
 
@@ -50,7 +50,7 @@ class Constructors(models.Model):
     url = models.CharField(max_length=255)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'constructors'
 
 
@@ -64,7 +64,7 @@ class DriverStandings(models.Model):
     wins = models.IntegerField()
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'driverStandings'
 
 
@@ -80,7 +80,7 @@ class Drivers(models.Model):
     url = models.CharField(unique=True, max_length=255)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'drivers'
 
 
@@ -93,7 +93,7 @@ class Laptimes(models.Model):
     milliseconds = models.IntegerField(blank=True, null=True)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'lapTimes'
         unique_together = (('raceid', 'driverid', 'lap'),)
 
@@ -108,7 +108,7 @@ class Pitstops(models.Model):
     milliseconds = models.IntegerField(blank=True, null=True)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'pitStops'
         unique_together = (('raceid', 'driverid', 'stop'),)
 
@@ -125,7 +125,7 @@ class Qualifying(models.Model):
     q3 = models.CharField(max_length=255, blank=True, null=True)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'qualifying'
 
 
@@ -140,7 +140,7 @@ class Races(models.Model):
     url = models.CharField(unique=True, max_length=255, blank=True, null=True)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'races'
 
 
@@ -165,7 +165,7 @@ class Results(models.Model):
     statusid = models.IntegerField(db_column='statusId')
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'results'
 
 
@@ -174,8 +174,11 @@ class Seasons(models.Model):
     url = models.CharField(unique=True, max_length=255)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'seasons'
+
+    def __str__(self):
+        return str(self.year)
 
 
 class Status(models.Model):
@@ -183,5 +186,5 @@ class Status(models.Model):
     status = models.CharField(max_length=255)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'status'

@@ -3,10 +3,10 @@ from django.conf import settings
 import gzip
 import MySQLdb as mysql
 import re
-import sys
-sys.path.append(R'/home/max/Documents/python/project/f1_stats/')
-from conf import conf
-
+# import sys
+# sys.path.append(R'/home/max/Documents/python/project/f1_stats/')
+# from conf import conf
+import f1_stats.db_settings as f1db
 
 class Command(BaseCommand):
 
@@ -15,7 +15,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
 
         def mysql_conn_etl(dbName):
-            db = mysql.connect(conf.DB_HOST, conf.DB_USER, conf.DB_USER_PASSWORD, dbName)
+            db = mysql.connect(f1db.DB_HOST, f1db.DB_ETL_USER, f1db.DB_ETL_USER_PASSWORD, dbName)
             return db
 
 
@@ -37,10 +37,10 @@ class Command(BaseCommand):
 
 
         def f1db_load_dump():
-            db = mysql_conn_etl(conf.DB_NAME)
+            db = mysql_conn_etl(f1db.DB_NAME)
             cursor = db.cursor()
 
-            f = gzip.open(conf.DB_DUMP_PATH, 'rt')
+            f = gzip.open(f1db.DB_DUMP_PATH, 'rt')
             mysql_sql_from_file(f, cursor)
 
             f.close()
