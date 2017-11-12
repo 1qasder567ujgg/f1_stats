@@ -12,34 +12,8 @@ class Circuits(models.Model):
     url = models.CharField(unique=True, max_length=255)
 
     class Meta:
-        managed = True
+        managed = False
         db_table = 'circuits'
-
-
-class ConstructorResults(models.Model):
-    constructorresultsid = models.AutoField(db_column='constructorResultsId', primary_key=True)
-    raceid = models.IntegerField(db_column='raceId')
-    constructorid = models.IntegerField(db_column='constructorId')
-    points = models.FloatField(blank=True, null=True)
-    status = models.CharField(max_length=255, blank=True, null=True)
-
-    class Meta:
-        managed = True
-        db_table = 'constructorResults'
-
-
-class ConstructorStandings(models.Model):
-    constructorstandingsid = models.AutoField(db_column='constructorStandingsId', primary_key=True)
-    raceid = models.IntegerField(db_column='raceId')
-    constructorid = models.IntegerField(db_column='constructorId')
-    points = models.FloatField()
-    position = models.IntegerField(blank=True, null=True)
-    positiontext = models.CharField(db_column='positionText', max_length=255, blank=True, null=True)
-    wins = models.IntegerField()
-
-    class Meta:
-        managed = True
-        db_table = 'constructorStandings'
 
 
 class Constructors(models.Model):
@@ -50,22 +24,8 @@ class Constructors(models.Model):
     url = models.CharField(max_length=255)
 
     class Meta:
-        managed = True
+        managed = False
         db_table = 'constructors'
-
-
-class DriverStandings(models.Model):
-    driverstandingsid = models.AutoField(db_column='driverStandingsId', primary_key=True)
-    raceid = models.IntegerField(db_column='raceId')
-    driverid = models.IntegerField(db_column='driverId')
-    points = models.FloatField()
-    position = models.IntegerField(blank=True, null=True)
-    positiontext = models.CharField(db_column='positionText', max_length=255, blank=True, null=True)
-    wins = models.IntegerField()
-
-    class Meta:
-        managed = True
-        db_table = 'driverStandings'
 
 
 class Drivers(models.Model):
@@ -80,53 +40,29 @@ class Drivers(models.Model):
     url = models.CharField(unique=True, max_length=255)
 
     class Meta:
-        managed = True
+        managed = False
         db_table = 'drivers'
 
 
-class Laptimes(models.Model):
-    raceid = models.IntegerField(db_column='raceId', primary_key=True)
-    driverid = models.IntegerField(db_column='driverId')
-    lap = models.IntegerField()
-    position = models.IntegerField(blank=True, null=True)
-    time = models.CharField(max_length=255, blank=True, null=True)
-    milliseconds = models.IntegerField(blank=True, null=True)
+class Seasons(models.Model):
+    year = models.IntegerField(primary_key=True)
+    url = models.CharField(unique=True, max_length=255)
 
     class Meta:
-        managed = True
-        db_table = 'lapTimes'
-        unique_together = (('raceid', 'driverid', 'lap'),)
+        managed = False
+        db_table = 'seasons'
+
+    def __str__(self):
+        return str(self.year)
 
 
-class Pitstops(models.Model):
-    raceid = models.IntegerField(db_column='raceId', primary_key=True)
-    driverid = models.IntegerField(db_column='driverId')
-    stop = models.IntegerField()
-    lap = models.IntegerField()
-    time = models.TimeField()
-    duration = models.CharField(max_length=255, blank=True, null=True)
-    milliseconds = models.IntegerField(blank=True, null=True)
+class Status(models.Model):
+    statusid = models.AutoField(db_column='statusId', primary_key=True)
+    status = models.CharField(max_length=255)
 
     class Meta:
-        managed = True
-        db_table = 'pitStops'
-        unique_together = (('raceid', 'driverid', 'stop'),)
-
-
-class Qualifying(models.Model):
-    qualifyid = models.AutoField(db_column='qualifyId', primary_key=True)
-    raceid = models.IntegerField(db_column='raceId')
-    driverid = models.IntegerField(db_column='driverId')
-    constructorid = models.IntegerField(db_column='constructorId')
-    number = models.IntegerField()
-    position = models.IntegerField(blank=True, null=True)
-    q1 = models.CharField(max_length=255, blank=True, null=True)
-    q2 = models.CharField(max_length=255, blank=True, null=True)
-    q3 = models.CharField(max_length=255, blank=True, null=True)
-
-    class Meta:
-        managed = True
-        db_table = 'qualifying'
+        managed = False
+        db_table = 'status'
 
 
 class Races(models.Model):
@@ -135,20 +71,105 @@ class Races(models.Model):
     round = models.IntegerField()
     circuitid = models.IntegerField(db_column='circuitId')
     name = models.CharField(max_length=255)
-    date = models.DateField()
+    date = models.DateField(blank=True, null=True)
     time = models.TimeField(blank=True, null=True)
     url = models.CharField(unique=True, max_length=255, blank=True, null=True)
 
     class Meta:
-        managed = True
+        managed = False
         db_table = 'races'
+
+
+class ConstructorResults(models.Model):
+    constructorresultsid = models.AutoField(db_column='constructorResultsId', primary_key=True)
+    raceid = models.ForeignKey(Races, db_column='raceId')
+    constructorid = models.ForeignKey(Constructors, db_column='constructorId')
+    points = models.FloatField(blank=True, null=True)
+    status = models.CharField(max_length=255, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'constructorResults'
+
+
+class ConstructorStandings(models.Model):
+    constructorstandingsid = models.AutoField(db_column='constructorStandingsId', primary_key=True)
+    raceid = models.ForeignKey(Races, db_column='raceId')
+    constructorid = models.ForeignKey(Constructors, db_column='constructorId')
+    points = models.FloatField()
+    position = models.IntegerField(blank=True, null=True)
+    positiontext = models.CharField(db_column='positionText', max_length=255, blank=True, null=True)
+    wins = models.IntegerField()
+
+    class Meta:
+        managed = False
+        db_table = 'constructorStandings'
+
+
+class DriverStandings(models.Model):
+    driverstandingsid = models.AutoField(db_column='driverStandingsId', primary_key=True)
+    raceid = models.ForeignKey(Races, db_column='raceId')
+    driverid = models.ForeignKey(Drivers, db_column='driverId')
+    points = models.FloatField()
+    position = models.IntegerField(blank=True, null=True)
+    positiontext = models.CharField(db_column='positionText', max_length=255, blank=True, null=True)
+    wins = models.IntegerField()
+
+    class Meta:
+        managed = False
+        db_table = 'driverStandings'
+
+
+class Laptimes(models.Model):
+    raceid = models.ForeignKey(Races, db_column='raceId', primary_key=True)
+    driverid = models.ForeignKey(Drivers, db_column='driverId')
+    lap = models.IntegerField()
+    position = models.IntegerField(blank=True, null=True)
+    time = models.CharField(max_length=255, blank=True, null=True)
+    milliseconds = models.IntegerField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'lapTimes'
+        unique_together = (('raceid', 'driverid', 'lap'),)
+
+
+class Pitstops(models.Model):
+    raceid = models.ForeignKey(Races, db_column='raceId', primary_key=True)
+    driverid = models.ForeignKey(Drivers, db_column='driverId')
+    stop = models.IntegerField()
+    lap = models.IntegerField()
+    time = models.TimeField()
+    duration = models.CharField(max_length=255, blank=True, null=True)
+    milliseconds = models.IntegerField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'pitStops'
+        unique_together = (('raceid', 'driverid', 'stop'),)
+
+
+class Qualifying(models.Model):
+    qualifyid = models.AutoField(db_column='qualifyId', primary_key=True)
+    raceid = models.ForeignKey(Races, db_column='raceId')
+    driverid = models.ForeignKey(Drivers, db_column='driverId')
+    constructorid = models.ForeignKey(Constructors, db_column='constructorId')
+    number = models.IntegerField()
+    position = models.IntegerField(blank=True, null=True)
+    q1 = models.CharField(max_length=255, blank=True, null=True)
+    q2 = models.CharField(max_length=255, blank=True, null=True)
+    q3 = models.CharField(max_length=255, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'qualifying'
 
 
 class Results(models.Model):
     resultid = models.AutoField(db_column='resultId', primary_key=True)
-    raceid = models.IntegerField(db_column='raceId')
-    driverid = models.IntegerField(db_column='driverId')
-    constructorid = models.IntegerField(db_column='constructorId')
+    raceid = models.ForeignKey(Races, db_column='raceId')
+    driverid = models.ForeignKey(Drivers, db_column='driverId')
+    constructorid = models.ForeignKey(Constructors, db_column='constructorId')
     number = models.IntegerField(blank=True, null=True)
     grid = models.IntegerField()
     position = models.IntegerField(blank=True, null=True)
@@ -162,29 +183,8 @@ class Results(models.Model):
     rank = models.IntegerField(blank=True, null=True)
     fastestlaptime = models.CharField(db_column='fastestLapTime', max_length=255, blank=True, null=True)
     fastestlapspeed = models.CharField(db_column='fastestLapSpeed', max_length=255, blank=True, null=True)
-    statusid = models.IntegerField(db_column='statusId')
+    statusid = models.ForeignKey(Status, db_column='statusId')
 
     class Meta:
-        managed = True
+        managed = False
         db_table = 'results'
-
-
-class Seasons(models.Model):
-    year = models.IntegerField(primary_key=True)
-    url = models.CharField(unique=True, max_length=255)
-
-    class Meta:
-        managed = True
-        db_table = 'seasons'
-
-    def __str__(self):
-        return str(self.year)
-
-
-class Status(models.Model):
-    statusid = models.AutoField(db_column='statusId', primary_key=True)
-    status = models.CharField(max_length=255)
-
-    class Meta:
-        managed = True
-        db_table = 'status'
