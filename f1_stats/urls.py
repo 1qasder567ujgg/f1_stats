@@ -16,10 +16,11 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 
-from website import views
+from website import views as web
 
 urlpatterns = [
-    url(r'^$', views.main_view, name='main_view'),
+    url(r'^$', web.main_view, name='main_view'),
+    url(r'^driver/(?P<id>[\w+]+)$', web.driver_view, name='driver_view'),
+    url(r'^drivers/(?P<letter>[A-Z]{1})$', web.drivers_view, name='drivers_view'),
     url(r'^admin/', admin.site.urls),
-    # url(r'^', include('website.urls', namespace='website')),
 ]

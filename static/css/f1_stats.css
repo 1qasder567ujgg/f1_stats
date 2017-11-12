@@ -3,3 +3,7 @@
     overflow: hidden;
     overflow-y: auto;
 }
+
+.selected-letter {
+	font-weight: bold;
+}

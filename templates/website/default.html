@@ -1,0 +1,33 @@
+{% extends "main.html" %}
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3">
+                {% if active != 'home' %}
+                    {% include "website/alphabet.html" %}
+                {% else %}
+                    {% include "website/home_left.html" %}
+                {% endif %}
+                
+            </div>
+            <div class="col-md-7">
+                {% if active == 'driver' %}
+                    {% include "website/driver_center.html" %}
+                {% elif active == 'drivers' %}
+                    {% include "website/drivers_center.html" %}
+                {% elif active == 'team' %}
+                    {% include "website/team_center.html" %}
+                {% elif active == 'teams' %}
+                    {% include "website/teams_center.html" %}
+                {% elif active == 'circuit' %}
+                    {% include "website/circuit_center.html" %}
+                {% else %}
+                    {% include "website/home_center.html" %}
+                {% endif %}                
+            </div>
+            <div class="col-md-2">
+                {% include "website/home_right.html" %}
+            </div>
+        </div>
+    </div>
+{% endblock content %}

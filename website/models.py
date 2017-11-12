@@ -188,3 +188,24 @@ class Results(models.Model):
     class Meta:
         managed = False
         db_table = 'results'
+
+
+class ConstructorDetail(models.Model):
+    constructorid = models.ForeignKey(Constructors)
+    # logo
+    twitter = models.CharField(max_length=50)
+    website = models.CharField(max_length=255)
+
+
+class DriverDetail(models.Model):
+    driverid = models.ForeignKey(Drivers)
+    # photo
+    twitter = models.CharField(max_length=50)
+    website = models.CharField(max_length=255)
+
+
+class CircuitDetail(models.Model):
+    driverid = models.ForeignKey(Circuits)
+    # layout
+    twitter = models.CharField(max_length=50)
+    website = models.CharField(max_length=255)

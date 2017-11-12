@@ -20,7 +20,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>                        
           </button>
-          <a class="navbar-brand" href="#">F1 Stats</a>
+          <a class="navbar-brand" href="/">F1 Stats</a>
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
           <ul class="nav navbar-nav">
@@ -33,8 +33,11 @@
                 {% endfor %}
               </ul>
             </li>
-            <li {% if active == 'Stats' %} class="active" {% endif %}><a href="#">Статистика</a></li>
-            <li {% if active == 'Forecast' %} class="active" {% endif %}><a href="#">Прогноз</a></li>
+            <li {% if 'driver' in active %} class="active" {% endif %}><a href="/drivers/A">Гонщики</a></li>
+            <li {% if 'team' in active %} class="active" {% endif %}><a href="#">Команды</a></li>
+            <li {% if 'circuit' in active %} class="active" {% endif %}><a href="#">Трассы</a></li>
+            <li {% if active == 'stats' %} class="active" {% endif %}><a href="#">Статистика</a></li>
+            <li {% if active == 'forecast' %} class="active" {% endif %}><a href="#">Прогноз</a></li>
           </ul>
         </div>
       </div>
