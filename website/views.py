@@ -1,7 +1,11 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from django.db.models import Sum
+
+from django.db.models import Sum, Count
+
 from .models import Seasons, Constructors, Drivers, Races, ConstructorStandings, DriverStandings, DriverDetail, Results
+from report.models import DriverStats, DriverCareer
+
 
 def main_view(request):
     seasons = Seasons.objects.all().order_by('-year')
@@ -15,13 +19,16 @@ def main_view(request):
                 'driverPoints':driverPoints,
                 'constructorPoints':constructorPoints,
                 }
-
     return render(request, 'website/default.html', context)
 
 
 def driver_view(request, id):
-    driver = Drivers.objects.get(driverid=int(id))
-    points = Results.objects.filter(driverid=int(id)).aggregate(Sum('points'))['points__sum']
+    driverid = int(id)
+    driver = Drivers.objects.get(driverid=driverid)
+    stats = DriverStats()
+    stats.getStats(driverid)
+    career = DriverCareer()
+    career = career.getCareer(driverid)
     active = 'driver'
     letters = [chr(i) for i in range(65, 91)]
     letter = driver.surname[0]
@@ -30,7 +37,8 @@ def driver_view(request, id):
     context = {
                 'active':active,
                 'driver':driver,
-                'points':points,
+                'stats':stats,
+                'career':career,
                 'letters':letters,
                 'letter':letter,
                 'alink':alink
