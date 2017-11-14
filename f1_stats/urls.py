@@ -22,5 +22,7 @@ urlpatterns = [
     url(r'^$', web.main_view, name='main_view'),
     url(r'^driver/(?P<id>[\w+]+)$', web.driver_view, name='driver_view'),
     url(r'^drivers/(?P<letter>[A-Z]{1})$', web.drivers_view, name='drivers_view'),
+    url(r'^team/(?P<id>[\w+]+)$', web.team_view, name='team_view'),
+    url(r'^teams/(?P<letter>[A-Z]{1})$', web.teams_view, name='teams_view'),
     url(r'^admin/', admin.site.urls),
 ]

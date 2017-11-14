@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from django.db.models import Sum, Count
 
 from .models import Seasons, Constructors, Drivers, Races, ConstructorStandings, DriverStandings, DriverDetail, Results
-from report.models import DriverStats, DriverCareer
+from report.models import DriverStats, DriverCareer, TeamStats, TeamDrivers
 
 
 def main_view(request):
@@ -54,6 +54,45 @@ def drivers_view(request, letter):
     context = {
                 'active':active,
                 'drivers':drivers,
+                'letters':letters,
+                'letter':letter,
+                'alink':alink
+                }
+    return render(request, 'website/default.html', context)
+
+
+def team_view(request, id):
+    teamid = int(id)
+    team = Constructors.objects.get(constructorid=teamid)
+    stats = TeamStats()
+    stats.getStats(teamid)
+    drivers = TeamDrivers()
+    drivers = drivers.getDrivers(teamid)
+    active = 'team'
+    letters = [chr(i) for i in range(65, 91)]
+    letter = team.name[0]
+    alink = 'teams'
+    # driverDetail = DriverDetail.objects.get(id=int(id))
+    context = {
+                'active':active,
+                'team':team,
+                'stats':stats,
+                'drivers':drivers,
+                'letters':letters,
+                'letter':letter,
+                'alink':alink
+                }
+    return render(request, 'website/default.html', context)
+
+
+def teams_view(request, letter):
+    teams = Constructors.objects.filter(name__startswith=letter).order_by('name')
+    active = 'teams'
+    letters = [chr(i) for i in range(65, 91)]
+    alink = 'teams'
+    context = {
+                'active':active,
+                'teams':teams,
                 'letters':letters,
                 'letter':letter,
                 'alink':alink

@@ -1,21 +1,44 @@
 <h2>{{ driver.forename }} {{ driver.surname }}</h2>
 <p><a href="{{ driver.url }}">{{ driver.url }}</a>
-<p>Гонки: {{ stats.races }}
-<br>Очки: {{ stats.points }}
-{% if stats.wins > 0 %}
-    <br>Победы: {{ stats.wins }}
-{% elif stats.bestr %}
-    <br>Лучший финиш: {{ stats.bestr }}
-{% endif %}
-<br>Всего кругов: {{ stats.lapst }}
-<br>Лучший круг: {{ stats.lapsf }}
-<br>Кругов лидирования: {{ stats.lapsl }}
-<br>Подиумы: {{ stats.podiums }}
-{% if stats.poles > 0 %}
-    <br>Поулы: {{ stats.poles }}
-{% elif stats.bestq %}
-    <br>Лучший старт: {{ stats.bestq }}
-{% endif %}
+<p>{{ driver.dob }}
+<br>{{ driver.nationality }}
+<table class="table table-condensed" style="width: auto">
+    <tr>
+        <td>
+            Гонки: {{ stats.races }}
+        </td>
+        <td>
+            Очки: {{ stats.points }}
+        </td>
+    </tr>
+    <tr>
+        <td>
+            {% if stats.wins > 0 %}
+                Победы: {{ stats.wins }}
+            {% elif stats.bestr %}
+                Лучший финиш: {{ stats.bestr }}
+            {% endif %}
+        </td><td>Подиумы: {{ stats.podiums }}</td>
+    </tr>
+    <tr>
+        <td>
+            {% if stats.poles > 0 %}
+                Поулы: {{ stats.poles }}
+            {% elif stats.bestq %}
+                Лучший старт: {{ stats.bestq }}
+            {% endif %}
+        </td><td>Лучший круг: {{ stats.lapsf }}</td>
+    </tr>
+    <tr>
+        <td>
+            Всего кругов: {{ stats.lapst }}
+        </td>
+        <td>
+            Кругов лидирования: {{ stats.lapsl }}
+        </td>
+    </tr>
+    <tr><td></td><td></td></tr>
+</table>
 
 <h3>Карьера</h3>
 <table class="table table-striped table-condensed" style="width: auto">
@@ -31,7 +54,7 @@
             <tr>
                 <td>{{forloop.counter}}</td>
                 <td>{{ step.0 }}</td>
-                <td>{{ step.1 }}</td>
+                <td><a href="/team/{{ step.2 }}">{{ step.1 }}</a></td>
             </tr>
         {% endfor%}        
     </tbody>
