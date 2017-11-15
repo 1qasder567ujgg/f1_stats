@@ -1,0 +1,3 @@
+{% for circuit in circuits %}
+    <br><a href="/circuit/{{ circuit.circuitid }}">{{circuit.name}}, {{circuit.country}}</a>
+{% endfor %}

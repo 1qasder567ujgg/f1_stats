@@ -25,17 +25,17 @@
         <div class="collapse navbar-collapse" id="myNavbar">
           <ul class="nav navbar-nav">
             <!-- <li {% if active == 'Home' %} class="active" {% endif %}><a href="#">Домой</a></li> -->
-            <li {% if active == 'Season' %} class="active" {% endif %} class="dropdown">
+            <li {% if 'season' in active %} class="active" {% endif %} class="dropdown">
               <a class="dropdown-toggle" data-toggle="dropdown" href="#">Сезоны<span class="caret"></span></a>
               <ul class="dropdown-menu scrollable-menu">
                 {% for season in seasons %}
-                    <li><a href="#">{{ season.year }}</a></li>
+                    <li><a href="/season/{{ season.year }}">{{ season.year }}</a></li>
                 {% endfor %}
               </ul>
             </li>
             <li {% if 'driver' in active %} class="active" {% endif %}><a href="/drivers/A">Гонщики</a></li>
             <li {% if 'team' in active %} class="active" {% endif %}><a href="/teams/A">Команды</a></li>
-            <li {% if 'circuit' in active %} class="active" {% endif %}><a href="#">Трассы</a></li>
+            <li {% if 'circuit' in active %} class="active" {% endif %}><a href="/circuits/A">Трассы</a></li>
             <li {% if active == 'stats' %} class="active" {% endif %}><a href="#">Статистика</a></li>
             <li {% if active == 'forecast' %} class="active" {% endif %}><a href="#">Прогноз</a></li>
           </ul>

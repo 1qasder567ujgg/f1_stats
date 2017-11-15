@@ -87,6 +87,9 @@ DATABASES = {
         'PASSWORD': f1db.DB_USER_PASSWORD,
         'HOST': f1db.DB_HOST,
         'PORT': '',
+        'OPTIONS': {
+                "init_command":"SET default_storage_engine=MYISAM",
+        }
     }
 }
 

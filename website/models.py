@@ -121,7 +121,7 @@ class DriverStandings(models.Model):
 
 
 class Laptimes(models.Model):
-    raceid = models.ForeignKey(Races, db_column='raceId', primary_key=True)
+    raceid = models.ForeignKey(Races, db_column='raceId')
     driverid = models.ForeignKey(Drivers, db_column='driverId')
     lap = models.IntegerField()
     position = models.IntegerField(blank=True, null=True)
@@ -135,7 +135,7 @@ class Laptimes(models.Model):
 
 
 class Pitstops(models.Model):
-    raceid = models.ForeignKey(Races, db_column='raceId', primary_key=True)
+    raceid = models.ForeignKey(Races, db_column='raceId')
     driverid = models.ForeignKey(Drivers, db_column='driverId')
     stop = models.IntegerField()
     lap = models.IntegerField()

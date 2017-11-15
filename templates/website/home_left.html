@@ -9,12 +9,12 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {% for driver in driverPoints %}
+                        {% for driver in drivers %}
                             <tr>
-                                <td>{{forloop.counter}}</td>
-                                <td>{{driver.driverid.forename.0}}. {{driver.driverid.surname}}</td>
-                                <td>{{driver.points}}</td>
-                                <td>{{driver.wins}}</td>
+                                <td>{{driver.0}}</td>
+                                <td><a href="/driver/{{ driver.5 }}">{{driver.2.0}}. {{driver.3}}</a></td>
+                                <td>{{driver.1}}</td>
+                                <td class="text-center">{{driver.4}}</td>
                             </tr>
                         {% endfor %}
                     </tbody>
@@ -30,12 +30,12 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {% for constructor in constructorPoints %}
+                        {% for team in teams %}
                             <tr>
-                                <td>{{forloop.counter}}</td>
-                                <td>{{constructor.constructorid.name}}</td>
-                                <td>{{constructor.points}}</td>
-                                <td>{{constructor.wins}}</td>
+                                <td>{{team.0}}</td>
+                                <td><a href="/team/{{ team.4 }}">{{team.2}}</a></td>
+                                <td>{{team.1}}</td>
+                                <td class="text-center">{{team.3}}</td>
                             </tr>
                         {% endfor %}
                     </tbody>

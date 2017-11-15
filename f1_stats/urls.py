@@ -24,5 +24,8 @@ urlpatterns = [
     url(r'^drivers/(?P<letter>[A-Z]{1})$', web.drivers_view, name='drivers_view'),
     url(r'^team/(?P<id>[\w+]+)$', web.team_view, name='team_view'),
     url(r'^teams/(?P<letter>[A-Z]{1})$', web.teams_view, name='teams_view'),
+    url(r'^circuit/(?P<id>[\w+]+)$', web.circuit_view, name='circuit_view'),
+    url(r'^circuits/(?P<letter>[A-Z]{1})$', web.circuits_view, name='circuits_view'),
+    url(r'^season/(?P<year>[\w+]+)$', web.season_view, name='season_view'),
     url(r'^admin/', admin.site.urls),
 ]

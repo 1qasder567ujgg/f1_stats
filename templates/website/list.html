@@ -1,7 +1,7 @@
-{% for i in letters %}
-    {% if i != letter %}
+{% for i in reflist %}
+    {% if i != selected %}
         <br>&nbsp;<a href="/{{alink}}/{{i}}">{{i}}</a>&nbsp;
-    {% elif i == letter and alink != active %}
+    {% elif i == selected and alink != active %}
         <br><font class="bg-info"><b>&nbsp;<a href="/{{alink}}/{{i}}">{{i}}</a>&nbsp;</b></font>
     {% else %}
         <br><font class="bg-info"><b>&nbsp;{{i}}&nbsp;</b></font>

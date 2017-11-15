@@ -3,8 +3,9 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-3">
-                {% if active != 'home' %}
-                    {% include "website/alphabet.html" %}
+                {% if active == 'seasons' %}
+                {% elif active != 'home' %}
+                    {% include "website/list.html" %}
                 {% else %}
                     {% include "website/home_left.html" %}
                 {% endif %}
@@ -21,6 +22,10 @@
                     {% include "website/teams_center.html" %}
                 {% elif active == 'circuit' %}
                     {% include "website/circuit_center.html" %}
+                {% elif active == 'circuits' %}
+                    {% include "website/circuits_center.html" %}
+                {% elif active == 'seasons' %}
+                    {% include "website/season_center.html" %}
                 {% else %}
                     {% include "website/home_center.html" %}
                 {% endif %}                
