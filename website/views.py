@@ -15,6 +15,8 @@ from .models import Seasons, \
                     DriverDetail, \
                     Results 
 
+from report.models import Reports
+
 from report.staticreports.stats import getDriverCareer, \
                                         getDriverStats, \
                                         getTeamDrivers, \
@@ -25,7 +27,15 @@ from report.staticreports.stats import getDriverCareer, \
 
 from report.staticreports.lists import getSeasons, \
                                         getAlphabet, \
-                                        getYears
+                                        getYears, \
+                                        getReports
+
+from report.staticreports.reports import getTotalWins, \
+                                        getTotalPoints, \
+                                        getTotalParticipants ,\
+                                        getMonacoLapTime, \
+                                        getTotalCareer, \
+                                        getPitstopTime
 
 
 def main_view(request):
@@ -157,6 +167,64 @@ def circuit_view(request, id):
                 'drivers':drivers,
                 'reflist':getAlphabet(),
                 'selected':letter,
+                'alink':alink
+                }
+    return render(request, 'website/default.html', context)
+
+
+def reports_view(request):
+    reports = Reports.objects.all()
+    active = 'reports'
+    alink = 'reports'
+    context = {
+                'seasons':getSeasons(),
+                'reports':reports,
+                'active':active,
+                'alink':alink
+                }
+    return render(request, 'website/default.html', context)
+
+
+def report_view(request, id):
+    reportid = int(id)
+    reports = Reports.objects.all()
+    report = Reports.objects.get(id=reportid)
+
+    if report.methodname == 'getTotalWins':
+        data = getTotalWins()
+        labels = []
+    elif report.methodname == 'getTotalPoints':
+        data = getTotalPoints()
+        labels = []
+    elif report.methodname == 'getTotalParticipants':
+        rep = getTotalParticipants()
+        labels = [d[0] for d in rep]
+        teams = [d[1] for d in rep]
+        drivers = [d[2] for d in rep]
+        data = [teams, drivers]
+    elif report.methodname == 'getMonacoLapTime':
+        data = getMonacoLapTime()
+        labels = []
+    elif report.methodname == 'getTotalCareer':
+        data = getTotalCareer()
+        labels = []
+    elif report.methodname == 'getPitstopTime':
+        data = getPitstopTime()
+        labels = []
+    else:
+        data = []
+        labels = []
+
+    active = 'report'
+    alink = 'reports'
+    context = {
+                'seasons':getSeasons(),
+                'reports':reports,
+                'active':active,
+                'data':data,
+                'labels':labels,
+                'selected':reportid,
+                'header':report.name,
                 'alink':alink
                 }
     return render(request, 'website/default.html', context)

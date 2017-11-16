@@ -1,0 +1,20 @@
+<h4>{{ header }}</h4>
+<table class="table table-condensed table-striped" style="width: auto">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Гонщик</th>
+            <th>Очки</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for d in data %}
+        <!-- d.driverId, d.forename, d.surname, SUM(r.points) AS Points  -->
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td><a href="/driver/{{ d.0 }}">{{ d.1.0 }}. {{ d.2 }}</a></td>
+                <td class="text-center">{{ d.3 }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>

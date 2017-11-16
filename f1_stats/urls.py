@@ -27,5 +27,7 @@ urlpatterns = [
     url(r'^circuit/(?P<id>[\w+]+)$', web.circuit_view, name='circuit_view'),
     url(r'^circuits/(?P<letter>[A-Z]{1})$', web.circuits_view, name='circuits_view'),
     url(r'^season/(?P<year>[\w+]+)$', web.season_view, name='season_view'),
+    url(r'^reports/', web.reports_view, name='reports_view'),
+    url(r'^report/(?P<id>[\w+]+)$', web.report_view, name='report_view'),
     url(r'^admin/', admin.site.urls),
 ]

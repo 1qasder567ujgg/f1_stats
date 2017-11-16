@@ -1,0 +1,13 @@
+{% if selected == 1 %}
+    {% include "report/totalwins.html" %}
+{% elif selected == 2 %}
+    {% include "report/totalpoints.html" %}
+{% elif selected == 3 %}
+    {% include "report/totalparticipants.html" %}
+{% elif selected == 4 %}
+    {% include "report/monacolaptime.html" %}
+{% elif selected == 5 %}
+    {% include "report/totalcareer.html" %}
+{% elif selected == 6 %}
+    {% include "report/pitstoptime.html" %}
+{% endif %}

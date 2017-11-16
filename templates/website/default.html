@@ -3,7 +3,8 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-3">
-                {% if active == 'seasons' %}
+                {% if 'report' in active %}
+                    {% include "website/reports.html" %}
                 {% elif active != 'home' %}
                     {% include "website/list.html" %}
                 {% else %}
@@ -24,6 +25,10 @@
                     {% include "website/circuit_center.html" %}
                 {% elif active == 'circuits' %}
                     {% include "website/circuits_center.html" %}
+                {% elif active == 'report' %}
+                    {% include "website/report_center.html" %}
+                {% elif active == 'reports' %}
+                    {% include "website/reports_center.html" %}
                 {% elif active == 'seasons' %}
                     {% include "website/season_center.html" %}
                 {% else %}

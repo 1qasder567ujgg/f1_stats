@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="{% static 'css/f1_stats.css' %}">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.js"></script>
   {% block CSS %}
   {% endblock CSS %}
   </head>
@@ -36,7 +37,7 @@
             <li {% if 'driver' in active %} class="active" {% endif %}><a href="/drivers/A">Гонщики</a></li>
             <li {% if 'team' in active %} class="active" {% endif %}><a href="/teams/A">Команды</a></li>
             <li {% if 'circuit' in active %} class="active" {% endif %}><a href="/circuits/A">Трассы</a></li>
-            <li {% if active == 'stats' %} class="active" {% endif %}><a href="#">Статистика</a></li>
+            <li {% if 'report' in active  %} class="active" {% endif %}><a href="/reports/">Статистика</a></li>
             <li {% if active == 'forecast' %} class="active" {% endif %}><a href="#">Прогноз</a></li>
           </ul>
         </div>

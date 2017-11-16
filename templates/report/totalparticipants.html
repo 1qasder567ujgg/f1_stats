@@ -1,0 +1,48 @@
+<h4>{{ header }}</h4>
+<!-- rs.year, COUNT(DISTINCT r.constructorId) AS Teams, COUNT(DISTINCT r.driverId) AS Drivers -->
+<canvas id="Participants" width="400" height="400"></canvas>
+<script>
+var ctx = document.getElementById("Participants");
+var myChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: {{ labels }},
+        datasets: [{
+            label: 'К-во команд',
+            data: {{ data.0 }},
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255,99,132,1)'
+            ],
+            borderWidth: 1
+        },{
+            label: 'К-во гонщиков',
+            data: {{ data.1 }},
+            backgroundColor: [
+                'rgba(54, 162, 235, 0.2)'
+            ],
+            borderColor: [
+                'rgba(54, 162, 235, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        responsive: true,
+        tooltips: {
+            position: 'nearest',
+            mode: 'index',
+            intersect: false,
+        },
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true
+                }
+            }]
+        }
+    }
+});
+</script>

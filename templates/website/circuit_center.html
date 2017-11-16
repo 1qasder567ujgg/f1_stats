@@ -14,7 +14,7 @@
         {% for driver in drivers %}
             <tr>
                 <td>{{ forloop.counter }}</td>
-                <td>{{driver.0}}</td>
+                <td><a href="/season/{{driver.0}}">{{driver.0}}</a></td>
                 <td>
                     {% if driver.1 != -1%}
                         <a href="/driver/{{ driver.1 }}">{{driver.2.0}}. {{driver.3}}</a>

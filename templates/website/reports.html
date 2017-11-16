@@ -1,0 +1,7 @@
+{% for report in reports %}
+    {% if report.id != selected %}
+        <br>&nbsp;<a href="/report/{{ report.id }}">{{ report.name }}</a>&nbsp;
+    {% else %}
+        <br><font class="bg-info"><b>&nbsp;{{ report.name }}&nbsp;</b></font>
+    {% endif %}
+{% endfor %}
