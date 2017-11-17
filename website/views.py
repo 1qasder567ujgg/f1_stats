@@ -5,6 +5,8 @@ from django.db.models import Sum, Count
 
 from datetime import datetime
 
+import f1_stats.other_settings as other
+
 from .models import Seasons, \
                     Constructors, \
                     Drivers, \
@@ -28,7 +30,8 @@ from report.staticreports.stats import getDriverCareer, \
 from report.staticreports.lists import getSeasons, \
                                         getAlphabet, \
                                         getYears, \
-                                        getReports
+                                        getReports, \
+                                        getMonacoWeather
 
 from report.staticreports.reports import getTotalWins, \
                                         getTotalPoints, \
@@ -167,7 +170,8 @@ def circuit_view(request, id):
                 'drivers':drivers,
                 'reflist':getAlphabet(),
                 'selected':letter,
-                'alink':alink
+                'alink':alink,
+                'mapkey':other.BING_MAP_KEY
                 }
     return render(request, 'website/default.html', context)
 
@@ -193,33 +197,64 @@ def report_view(request, id):
     if report.methodname == 'getTotalWins':
         data = getTotalWins()
         labels = []
+        weather = []
     elif report.methodname == 'getTotalPoints':
         data = getTotalPoints()
         labels = []
+        weather = []
     elif report.methodname == 'getTotalParticipants':
         rep = getTotalParticipants()
         labels = [d[0] for d in rep]
         teams = [d[1] for d in rep]
         drivers = [d[2] for d in rep]
         data = [teams, drivers]
+        weather = []
     elif report.methodname == 'getMonacoLapTime':
-        data = getMonacoLapTime()
-        labels = []
+        rep = getMonacoLapTime()
+        labels = [d[0] for d in rep]
+        race = [d[1]/1000 for d in rep]
+        qual = [min([d[2], d[3], d[4]])/1000 for d in rep]
+        print(rep)
+        weather = getMonacoWeather()
+        data = [race, qual]
     elif report.methodname == 'getTotalCareer':
         data = getTotalCareer()
         labels = []
+        weather = []
     elif report.methodname == 'getPitstopTime':
-        data = getPitstopTime()
-        labels = []
+        # r.year, MinTime, AvgTime
+        circuitid = 6 # Monaco
+        rep = getPitstopTime(circuitid) 
+        labels = [d[0] for d in rep]
+        cmin = [d[1]/1000 for d in rep]
+        cavg = [d[2]/1000 for d in rep]
+        circuit1 = [cmin, cavg]
+
+        circuitid = 4 # Spain
+        rep = getPitstopTime(circuitid) 
+        cmin = [d[1]/1000 for d in rep]
+        cavg = [d[2]/1000 for d in rep]
+        circuit2 = [cmin, cavg]
+        
+        circuitid = 9 # Spa
+        rep = getPitstopTime(circuitid) 
+        cmin = [d[1]/1000 for d in rep]
+        cavg = [d[2]/1000 for d in rep]
+        circuit3 = [cmin, cavg]
+
+        weather = []
+        data = [circuit1, circuit2, circuit3]
     else:
         data = []
         labels = []
+        weather = []
 
     active = 'report'
     alink = 'reports'
     context = {
                 'seasons':getSeasons(),
                 'reports':reports,
+                'weather':weather,
                 'active':active,
                 'data':data,
                 'labels':labels,

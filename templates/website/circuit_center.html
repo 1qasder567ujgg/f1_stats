@@ -1,6 +1,7 @@
 <h2>{{ circuit.name }}</h2>
 <p><a href="{{ circuit.url }}">{{ circuit.url }}</a>
 <p>{{ circuit.country }}, {{ circuit.location }}
+<div id="CircuitMap" style="position:relative;width:600px;height:400px;"></div>
 <table class="table table-striped table-condensed" style="width: auto">
     <thead>
         <tr>
@@ -33,3 +34,17 @@
         {% endfor %}
     </tbody>
 </table>
+<script type='text/javascript'
+        src='http://www.bing.com/api/maps/mapcontrol?callback=GetMap' async defer></script>
+
+<script type='text/javascript'>
+function GetMap()
+{
+    var map = new Microsoft.Maps.Map('#CircuitMap', {
+        credentials: '{{ mapkey }}',
+        center: new Microsoft.Maps.Location({{ circuit.lat }}, {{ circuit.lng }}),
+        mapTypeId: Microsoft.Maps.MapTypeId.aerial,
+        zoom: 15
+    });
+}
+</script>

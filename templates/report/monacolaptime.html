@@ -1,1 +1,72 @@
 <h4>{{ header }}</h4>
+<!-- r.year, RaceTime, QualTime -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-3">
+            <table class="table table-condensed table-striped" style="width: auto">
+                <thead>
+                    <tr>
+                        <th>Год</th>
+                        <th>Особенности</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for w in weather %}
+                        <tr>
+                            <td>{{ w.0 }}</td>
+                            <td>{{ w.1 }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-9">
+            <canvas id="MonacoLap" width="400" height="400"></canvas>
+        </div>
+    </div>
+</div>
+<script>
+var ctx = document.getElementById("MonacoLap");
+var myChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: {{ labels }},
+        datasets: [{
+            label: 'Лучший круг в гонке',
+            data: {{ data.0 }},
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255,99,132,1)'
+            ],
+            borderWidth: 1
+        },{
+            label: 'Лучший круг в квалификации',
+            data: {{ data.1 }},
+            backgroundColor: [
+                'rgba(54, 162, 235, 0.2)'
+            ],
+            borderColor: [
+                'rgba(54, 162, 235, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        responsive: true,
+        tooltips: {
+            position: 'nearest',
+            mode: 'index',
+            intersect: false,
+        },
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:false
+                }
+            }]
+        }
+    }
+});
+</script>

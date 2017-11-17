@@ -2,7 +2,7 @@
 {% block content %}
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-{% if 'report' in active %}2{% else %}3{% endif %}">
                 {% if 'report' in active %}
                     {% include "website/reports.html" %}
                 {% elif active != 'home' %}
@@ -12,7 +12,7 @@
                 {% endif %}
                 
             </div>
-            <div class="col-md-7">
+            <div class="col-md-{% if 'report' in active %}8{% else %}7{% endif %}">
                 {% if active == 'driver' %}
                     {% include "website/driver_center.html" %}
                 {% elif active == 'drivers' %}
