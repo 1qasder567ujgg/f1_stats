@@ -5,6 +5,8 @@
             <div class="col-md-{% if 'report' in active %}2{% else %}3{% endif %}">
                 {% if 'report' in active %}
                     {% include "website/reports.html" %}
+                {% elif active == 'forecast' %}
+                    {% include "website/home_left.html" %}
                 {% elif active != 'home' %}
                     {% include "website/list.html" %}
                 {% else %}
@@ -31,6 +33,8 @@
                     {% include "website/reports_center.html" %}
                 {% elif active == 'seasons' %}
                     {% include "website/season_center.html" %}
+                {% elif active == 'forecast' %}
+                    {% include "website/forecast_center.html" %}
                 {% else %}
                     {% include "website/home_center.html" %}
                 {% endif %}                

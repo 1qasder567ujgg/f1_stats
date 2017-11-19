@@ -19,6 +19,8 @@ from .models import Seasons, \
 
 from report.models import Reports
 
+from forecast.models import Forecast
+
 from report.staticreports.stats import getDriverCareer, \
                                         getDriverStats, \
                                         getTeamDrivers, \
@@ -42,13 +44,17 @@ from report.staticreports.reports import getTotalWins, \
 
 
 def main_view(request):
+    raceForecast = Forecast.objects.all().order_by('position')[:3]
+    qualForecast = Forecast.objects.all().order_by('grid')[:3]
     active = 'home'
     year = datetime.now().year
     context = {
                 'seasons':getSeasons(),
                 'active':active,
                 'drivers':getDriverStandings(year)[:10],
-                'teams':getConstructorStandings(year)[:10]
+                'teams':getConstructorStandings(year)[:10],
+                'raceForecast':raceForecast,
+                'qualForecast':qualForecast,
                 }
     return render(request, 'website/default.html', context)
 
@@ -261,5 +267,23 @@ def report_view(request, id):
                 'selected':reportid,
                 'header':report.name,
                 'alink':alink
+                }
+    return render(request, 'website/default.html', context)
+
+
+def forecast_view(request):
+    raceForecast = Forecast.objects.all().order_by('position')
+    qualForecast = Forecast.objects.all().order_by('grid')
+    nextRace = Races.objects.get(raceid=985)
+    year = datetime.now().year
+    active = 'forecast'
+    context = {
+                'seasons':getSeasons(),
+                'active':active,
+                'raceForecast':raceForecast,
+                'qualForecast':qualForecast,
+                'race':nextRace,
+                'drivers':getDriverStandings(year)[:10],
+                'teams':getConstructorStandings(year)[:10]
                 }
     return render(request, 'website/default.html', context)

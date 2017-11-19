@@ -29,5 +29,6 @@ urlpatterns = [
     url(r'^season/(?P<year>[\w+]+)$', web.season_view, name='season_view'),
     url(r'^reports/', web.reports_view, name='reports_view'),
     url(r'^report/(?P<id>[\w+]+)$', web.report_view, name='report_view'),
+    url(r'^forecast/', web.forecast_view, name='forecast_view'),
     url(r'^admin/', admin.site.urls),
 ]

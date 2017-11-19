@@ -1,3 +1,9 @@
 from django.db import models
 
-# Create your models here.
+from website.models import Drivers
+
+
+class Forecast(models.Model):
+    driver = models.ForeignKey(Drivers)
+    position = models.IntegerField(blank=True, null=True)
+    grid = models.IntegerField(blank=True, null=True)

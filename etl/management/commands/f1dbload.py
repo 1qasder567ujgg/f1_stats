@@ -3,9 +3,7 @@ from django.conf import settings
 import gzip
 import MySQLdb as mysql
 import re
-# import sys
-# sys.path.append(R'/home/max/Documents/python/project/f1_stats/')
-# from conf import conf
+
 import f1_stats.db_settings as f1db
 
 class Command(BaseCommand):
