@@ -190,22 +190,36 @@ class Results(models.Model):
         db_table = 'results'
 
 
-class ConstructorDetail(models.Model):
-    constructorid = models.ForeignKey(Constructors)
-    # logo
-    twitter = models.CharField(max_length=50)
-    website = models.CharField(max_length=255)
+class DriverStats(models.Model):
+    driverid = models.IntegerField(primary_key=True)
+    firstletter = models.CharField(max_length=1)
+    code = models.CharField(max_length=3)
+    forename = models.CharField(max_length=255)
+    surname = models.CharField(max_length=255)
+    dob = models.DateField(blank=True, null=True)
+    nationality = models.CharField(max_length=255, blank=True, null=True)
+    forenamerus = models.CharField(max_length=255)
+    surnamerus = models.CharField(max_length=255)
+    nationalityrus = models.CharField(max_length=255, blank=True, null=True)
+    twitter = models.CharField(max_length=255, blank=True, null=True)
+    instagram = models.CharField(max_length=255, blank=True, null=True)
+    website = models.CharField(max_length=255, blank=True, null=True)
+    photo = models.CharField(max_length=255, blank=True, null=True)
+    flag = models.CharField(max_length=255, blank=True, null=True)
+    years = models.IntegerField(blank=True, null=True)
+    gp = models.IntegerField(blank=True, null=True)
+    win = models.IntegerField(blank=True, null=True)
+    podium = models.IntegerField(blank=True, null=True)
+    pole = models.IntegerField(blank=True, null=True)
+    bestfinish = models.IntegerField(blank=True, null=True)
+    beststart = models.IntegerField(blank=True, null=True)
+    laps = models.IntegerField(blank=True, null=True)
+    fl = models.IntegerField(blank=True, null=True)
+    lapsled = models.IntegerField(blank=True, null=True)
+    points = models.IntegerField(blank=True, null=True)
+    pointsgraph = models.CharField(max_length=255, blank=True, null=True)
 
 
-class DriverDetail(models.Model):
-    driverid = models.ForeignKey(Drivers)
-    # photo
-    twitter = models.CharField(max_length=50)
-    website = models.CharField(max_length=255)
-
-
-class CircuitDetail(models.Model):
-    driverid = models.ForeignKey(Circuits)
-    # layout
-    twitter = models.CharField(max_length=50)
-    website = models.CharField(max_length=255)
+    class Meta:
+        managed = False
+        db_table = 'driverstats'

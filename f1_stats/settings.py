@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'qix!96-0he4j4^krs5v3@s%dsfodglf8&8blvbya+)ry)9s=(w'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['localhost']
 
@@ -89,6 +89,7 @@ DATABASES = {
         'PORT': '',
         'OPTIONS': {
                 "init_command":"SET default_storage_engine=MYISAM",
+                'sql_mode': 'NO_AUTO_CREATE_USER',
         }
     }
 }

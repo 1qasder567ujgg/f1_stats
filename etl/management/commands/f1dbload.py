@@ -17,6 +17,16 @@ class Command(BaseCommand):
             return db
 
 
+        def mysql_execute(cursor, statement):
+            try:
+                cursor.execute(statement)
+
+            except Exception as e:
+                print(e)
+                print(statement)
+
+
+
         def mysql_sql_from_file(fHandler, cursor):
             statement = ''.encode('utf-8')
             for sql in fHandler:
@@ -25,13 +35,16 @@ class Command(BaseCommand):
                         statement += sql.encode('utf-8')
                     else:
                         statement += sql.encode('utf-8')
-                        try:
-                            cursor.execute(statement)
-                            statement = ''.encode('utf-8')
+                        mysql_execute(cursor, statement)
+                        statement = ''.encode('utf-8')
+                        
+                        # try:
+                        #     cursor.execute(statement)
+                        #     statement = ''.encode('utf-8')
 
-                        except Exception as e:
-                            print(e)
-                            print(sql)
+                        # except Exception as e:
+                        #     print(e)
+                        #     print(sql)
 
 
         def f1db_load_dump():
@@ -45,4 +58,16 @@ class Command(BaseCommand):
             db.close()
 
 
+        def f1db_update_stats():
+            db = mysql_conn_etl(f1db.DB_NAME)
+            cursor = db.cursor()
+
+            sql = 'CALL f1db.updateDriverStats'
+            mysql_execute(cursor, sql)
+
+            db.close()
+
+
+
         f1db_load_dump()
+        f1db_update_stats()

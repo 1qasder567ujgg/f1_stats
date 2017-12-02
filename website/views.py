@@ -14,8 +14,8 @@ from .models import Seasons, \
                     Circuits, \
                     ConstructorStandings, \
                     DriverStandings, \
-                    DriverDetail, \
-                    Results 
+                    Results, \
+                    DriverStats 
 
 from report.models import Reports
 
@@ -61,17 +61,17 @@ def main_view(request):
 
 def driver_view(request, id):
     driverid = int(id)
-    driver = Drivers.objects.get(driverid=driverid)
-    stats = getDriverStats(driverid)
+    driver = DriverStats.objects.get(driverid=driverid)
+    # stats = getDriverStats(driverid)
     career = getDriverCareer(driverid)
     active = 'driver'
-    letter = driver.surname[0]
+    letter = driver.firstletter
     alink = 'drivers'
     context = {
                 'seasons':getSeasons(),
                 'active':active,
                 'driver':driver,
-                'stats':stats,
+                # 'stats':stats,
                 'career':career,
                 'reflist':getAlphabet(),
                 'selected':letter,

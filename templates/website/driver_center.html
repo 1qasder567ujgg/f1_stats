@@ -1,45 +1,96 @@
-<h2>{{ driver.forename }} {{ driver.surname }}</h2>
-<p><a href="{{ driver.url }}">{{ driver.url }}</a>
-<p>{{ driver.dob }}
-<br>{{ driver.nationality }}
-<table class="table table-condensed" style="width: auto">
-    <tr>
-        <td>
-            Гонки: {{ stats.races }}
-        </td>
-        <td>
-            Очки: {{ stats.points }}
-        </td>
-    </tr>
-    <tr>
-        <td>
-            {% if stats.wins > 0 %}
-                Победы: {{ stats.wins }}
-            {% elif stats.bestr %}
-                Лучший финиш: {{ stats.bestr }}
+{% load static %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>
+                {{ driver.forenamerus }} {{ driver.surnamerus }} ({{ driver.forename }} {{ driver.surname }})
+                {% if driver.flag %}
+                    <img src="{% static 'image/flag/' %}{{ driver.flag }}" 
+                            alt="{{ driver.nationalityrus }}" 
+                            title="{{ driver.nationalityrus }}">
+                {% endif %}
+            </h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            {% if driver.photo %}
+                <img src="{% static 'image/driver/' %}{{ driver.photo }}" 
+                    alt="{{ driver.forenamerus }} {{ driver.surnamerus }}" 
+                    title="{{ driver.forenamerus }} {{ driver.surnamerus }}">
             {% endif %}
-        </td><td>Подиумы: {{ stats.podiums }}</td>
-    </tr>
-    <tr>
-        <td>
-            {% if stats.poles > 0 %}
-                Поулы: {{ stats.poles }}
-            {% elif stats.bestq %}
-                Лучший старт: {{ stats.bestq }}
-            {% endif %}
-        </td><td>Лучший круг: {{ stats.lapsf }}</td>
-    </tr>
-    <tr>
-        <td>
-            Всего кругов: {{ stats.lapst }}
-        </td>
-        <td>
-            Кругов лидирования: {{ stats.lapsl }}
-        </td>
-    </tr>
-    <tr><td></td><td></td></tr>
-</table>
-
+        </div>
+        <div class="col-md-1"></div>
+        <div class="col-md-5">
+            <!-- <h3>Персональная информация</h3> -->
+            <table class="table table-condensed" style="width: auto">
+                <tr>
+                    <td>
+                        <a href="{{ driver.website }}">Вебсайт</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        {% if driver.twitter %}
+                            <a href="https://twitter.com/{{ driver.twitter }}">
+                                <img src="{% static 'image/icons/twitter.png' %}" style="background-color:red;">
+                            </a>
+                        {% endif %}
+                        {% if driver.instagram %}
+                            <a href="https://instagram.com/{{ driver.instagram }}">
+                                <img src="{% static 'image/icons/inst.png' %}">
+                            </a>
+                        {% endif %}
+                        
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        {{ driver.dob }}
+                    </td>
+                </tr>
+                <tr><td></td><td></td></tr>
+            </table>
+            <h3>Достижения</h3>
+            <table class="table table-condensed" style="width: auto">
+                <tr>
+                    <td>
+                        Гонки: {{ driver.gp }}
+                    </td>
+                    <td>
+                        Очки: {{ driver.points }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        {% if driver.win > 0 %}
+                            Победы: {{ driver.win }}
+                        {% elif driver.bestfinish %}
+                            Лучший финиш: {{ driver.bestfinish }}
+                        {% endif %}
+                    </td><td>Подиумы: {{ driver.podium }}</td>
+                </tr>
+                <tr>
+                    <td>
+                        {% if driver.pole > 0 %}
+                            Поулы: {{ driver.pole }}
+                        {% elif driver.beststart %}
+                            Лучший старт: {{ driver.beststart }}
+                        {% endif %}
+                    </td><td>Лучший круг: {{ driver.fl }}</td>
+                </tr>
+                <tr>
+                    <td>
+                        Всего кругов: {{ driver.laps }}
+                    </td>
+                    <td>
+                        Кругов лидирования: {{ driver.lapsled }}
+                    </td>
+                </tr>
+                <tr><td></td><td></td></tr>
+            </table>
+        </div>
+    </div>
 <h3>Карьера</h3>
 <table class="table table-striped table-condensed" style="width: auto">
     <thead>
@@ -60,3 +111,4 @@
     </tbody>
     
 </table>
+</div>
